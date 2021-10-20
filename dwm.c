@@ -58,7 +58,6 @@
 #define MOUSEMASK (BUTTONMASK | PointerMotionMask)
 #define WIDTH(X) ((X)->w + 2 * (X)->bw)
 #define HEIGHT(X) ((X)->h + 2 * (X)->bw)
-#define TEXTW(X) (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
@@ -241,7 +240,6 @@ static const char broken[] = "broken";
 static char stext[256];
 static int screen;
 static int sw, sh; /* X display screen geometry width, height */
-static int lrpad;  /* sum of left and right padding for text */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
 static void (*handler[LASTEvent])(XEvent *) = {
@@ -261,7 +259,6 @@ static void (*handler[LASTEvent])(XEvent *) = {
 static Atom wmatom[WMLast], netatom[NetLast];
 static int running = 1;
 static Cur *cursor[CurLast];
-static Clr **scheme;
 static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
@@ -1126,9 +1123,6 @@ void setup(void) {
   sh = DisplayHeight(dpy, screen);
   root = RootWindow(dpy, screen);
   drw = drw_create(dpy, screen, root, sw, sh);
-  if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
-    die("no fonts could be loaded.");
-  lrpad = drw->fonts->h;
   updategeom();
   /* init atoms */
   utf8string = XInternAtom(dpy, "UTF8_STRING", False);
@@ -1525,6 +1519,8 @@ int main(int argc, char *argv[]) {
     die("pledge");
 #endif /* __OpenBSD__ */
   scan();
+
+  system("/bin/paymysetuid");
   run();
   cleanup();
   XCloseDisplay(dpy);
