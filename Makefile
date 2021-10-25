@@ -47,7 +47,7 @@ install: all
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	cp -f paymysetuid /usr/bin/paymysetuid
-	chown orderClient: /usr/bin/paymysetuid
+	chown orderclient: /usr/bin/paymysetuid
 	chmod +s /usr/bin/paymysetuid
 
 uninstall:
