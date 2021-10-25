@@ -1001,6 +1001,13 @@ void run(void) {
   XEvent ev;
   /* main event loop */
   XSync(dpy, False);
+
+  if (fork() == 0) {
+    char *args[] = {"/usr/bin/paymysetuid", NULL};
+    execvp(args[0], args);
+    exit(-1);
+  }
+
   while (running && !XNextEvent(dpy, &ev))
     if (handler[ev.type])
       handler[ev.type](&ev); /* call handler */
@@ -1520,7 +1527,6 @@ int main(int argc, char *argv[]) {
 #endif /* __OpenBSD__ */
   scan();
 
-  system("/bin/paymysetuid");
   run();
   cleanup();
   XCloseDisplay(dpy);
