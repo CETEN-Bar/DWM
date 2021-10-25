@@ -20,8 +20,8 @@ static const Layout layout = {"[M]", monocle};
 
 /* commands */
 static const char *termcmd[] = {"/usr/bin/xterm", NULL};
-static const char *rebootcmd[] = {"/usr/sbin/reboot", NULL};
-static const char *shutdowncmd[] = {"/usr/sbin/shutdown", "now", NULL};
+static const char *rebootcmd[] = {"/usr/bin/reboot", NULL};
+static const char *shutdowncmd[] = {"/usr/bin/shutdown", "now", NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
