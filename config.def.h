@@ -22,12 +22,19 @@ static const Layout layout = {"[M]", monocle};
 static const char *termcmd[] = {"/usr/bin/xterm", NULL};
 static const char *rebootcmd[] = {"/usr/bin/reboot", NULL};
 static const char *shutdowncmd[] = {"/usr/bin/shutdown", "now", NULL};
+static const char *pmbcmd[] = {"/usr/bin/paymysetuid", NULL};
+static const char *pmbstopcmd[] = {"/usr/bin/paymysetuid", "--stop", NULL};
+static const char *pmbrestartcmd[] = {"/usr/bin/paymysetuid", "--restart",
+                                      NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
     {MODKEY | ShiftMask, XK_r, spawn, {.v = rebootcmd}},
     {MODKEY | ShiftMask, XK_s, spawn, {.v = shutdowncmd}},
+    {MODKEY, XK_p, spawn, {.v = pmbcmd}},
+    {MODKEY, XK_s, spawn, {.v = pmbstopcmd}},
+    {MODKEY, XK_r, spawn, {.v = pmbrestartcmd}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
     {MODKEY, XK_k, focusstack, {.i = -1}},
     {MODKEY | ShiftMask, XK_c, killclient, {0}},
