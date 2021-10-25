@@ -136,7 +136,6 @@ typedef struct {
 
 struct Monitor {
   char ltsymbol[16];
-  float mfact;
   int num;
   int mx, my, mw, mh; /* screen size */
   int wx, wy, ww, wh; /* window area  */
@@ -209,7 +208,6 @@ static int sendevent(Client *c, Atom proto);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
-static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
@@ -546,7 +544,6 @@ Monitor *createmon(void) {
 
   m = ecalloc(1, sizeof(Monitor));
   m->tagset[0] = m->tagset[1] = 1;
-  m->mfact = mfact;
   return m;
 }
 
@@ -1095,19 +1092,6 @@ void setfullscreen(Client *c, int fullscreen) {
     resizeclient(c, c->x, c->y, c->w, c->h);
     arrange(c->mon);
   }
-}
-
-/* arg > 1.0 will set mfact absolutely */
-void setmfact(const Arg *arg) {
-  float f;
-
-  if (!arg)
-    return;
-  f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
-  if (f < 0.05 || f > 0.95)
-    return;
-  selmon->mfact = f;
-  arrange(selmon);
 }
 
 void setup(void) {
