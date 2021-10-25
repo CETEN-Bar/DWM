@@ -195,7 +195,6 @@ static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static Client *nexttiled(Client *c);
-static void pop(Client *);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
@@ -229,7 +228,6 @@ static Monitor *wintomon(Window w);
 static int xerror(Display *dpy, XErrorEvent *ee);
 static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
-static void zoom(const Arg *arg);
 
 /* variables */
 static const char broken[] = "broken";
@@ -892,13 +890,6 @@ Client *nexttiled(Client *c) {
   return c;
 }
 
-void pop(Client *c) {
-  detach(c);
-  attach(c);
-  focus(c);
-  arrange(c->mon);
-}
-
 void propertynotify(XEvent *e) {
   Client *c;
   Window trans;
@@ -1474,17 +1465,6 @@ int xerrordummy(Display *dpy, XErrorEvent *ee) { return 0; }
 int xerrorstart(Display *dpy, XErrorEvent *ee) {
   die("dwm: another window manager is already running");
   return -1;
-}
-
-void zoom(const Arg *arg) {
-  Client *c = selmon->sel;
-
-  if (selmon->sel && selmon->sel->isfloating)
-    return;
-  if (c == nexttiled(selmon->clients))
-    if (!c || !(c = nexttiled(c->next)))
-      return;
-  pop(c);
 }
 
 int main(int argc, char *argv[]) {

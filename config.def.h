@@ -30,7 +30,6 @@ static Key keys[] = {
     {MODKEY | ShiftMask, XK_s, spawn, {.v = shutdowncmd}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
     {MODKEY, XK_k, focusstack, {.i = -1}},
-    {MODKEY, XK_Return, zoom, {0}},
     {MODKEY | ShiftMask, XK_c, killclient, {0}},
     {MODKEY | ShiftMask, XK_q, quit, {0}},
 };
