@@ -36,10 +36,9 @@ int main(int argc, char **argv, char **env) {
 
     chdir("/home/orderclient/orderClient");
 
-    char *args[] = {
-        "/bin/sh", "-c",
-        "./launch_local.sh /home/orderclient/orderClient/pmb_ghetto_custom.jar",
-        NULL};
+    char *args[] = {"/home/orderclient/orderClient/launch_local.sh",
+                    "/home/orderclient/orderClient/pmb_ghetto_custom.jar",
+                    NULL};
 
     if ((pid = fork()) == 0)
       execve(args[0], args, env);
