@@ -34,11 +34,12 @@ int main(int argc, char **argv, char **env) {
 
     setreuid(geteuid(), geteuid());
 
-    chdir("/home/orderclient/");
+    chdir("/home/orderclient/orderClient");
 
-    char *args[] = {"/bin/sh", "/home/orderclient/orderClient/launch_local.sh",
-                    "/home/orderclient/orderClient/pmb_ghetto_custom.jar",
-                    NULL};
+    char *args[] = {
+        "/bin/sh", "-c",
+        "./launch_local.sh /home/orderclient/orderClient/pmb_ghetto_custom.jar",
+        NULL};
 
     if ((pid = fork()) == 0)
       execve(args[0], args, env);
